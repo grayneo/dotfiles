@@ -1,0 +1,341 @@
+##################################################
+#############		 				#######################
+###				i3twm configure								####
+#############						#######################
+################################################## 
+
+############ i3gaps ###############################
+
+for_window [class="^.*"] border pixel 1
+ 
+gaps inner 10
+gaps outer 0
+ 
+smart_gaps on
+smart_borders on
+ 
+ 
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+ctrl+g mode "$mode_gaps"
+ 
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+ 
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+ 
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+ 
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+ 
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+########################################
+
+################ Color ###################
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #E12525 #EFDA84 #000000 #0792FC   #285577
+client.focused_inactive #E12525 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #ffffff #292d2e   #222222
+client.urgent           #E12525 #900000 #ffffff #900000   #900000
+client.placeholder      #E12525 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+########################################
+
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+
+font pango:ubuntu  9
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec terminator
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+g exec rofi -show run -lines 10 -eh 1 -width 600 -padding 8 -opacity 95 -font ubuntu\ 10
+
+# Switch between windows (with rofi):
+bindsym $mod+Tab exec --no-startup-id rofi -show window -case-sensitive -bg 'white' -bc '#569BE4' -bw 2 -fg 'black' -hlbg '#569BE4' -hlfg 'white' -font ubuntu\ 10 -opacity 90 -eh 1.5 -lines 10 -columns 1 -width 40 -location 0 -padding 5 #-auto-select	
+
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# customize workspace name
+set $WS1 1 : 
+set $WS2 2 : 
+set $WS3 3 : 
+set $WS4 4 :  
+set $WS5 5 : 
+set $WS6 6 : 
+set $WS7 7 : 
+set $WS8 8 : 
+set $WS9 9 : 
+set $WS0 10 : 
+
+
+  set $monitor1 "DVI-I-1"
+  set $monitor2 "HDMI-0"
+
+# switch to workspace
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
+bindsym $mod+3 workspace $WS3
+bindsym $mod+4 workspace $WS4
+bindsym $mod+5 workspace $WS5
+bindsym $mod+6 workspace $WS6
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+0 workspace $WS0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $WS1
+bindsym $mod+Shift+2 move container to workspace $WS2
+bindsym $mod+Shift+3 move container to workspace $WS3
+bindsym $mod+Shift+4 move container to workspace $WS4
+bindsym $mod+Shift+5 move container to workspace $WS5
+bindsym $mod+Shift+6 move container to workspace $WS6
+bindsym $mod+Shift+7 move container to workspace $WS7
+bindsym $mod+Shift+8 move container to workspace $WS8
+bindsym $mod+Shift+9 move container to workspace $WS9
+bindsym $mod+Shift+0 move container to workspace $WS0
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+################ Restart i3 #####################
+bindsym $mod+Shift+r restart
+#################################################
+
+################ Resize Window ##################
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+       bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+#################################################
+
+
+################ i3Bar Configure ##################### Arch
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+## bar {
+ ##         status_command i3blocks -c ~/.i3blocks.conf
+#	position top
+ ##	colors {
+#               background #2f343f
+  ##		background #1d1f23
+  ##             }
+  ## }
+########################################### Default
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+ ## bar {
+ ##       status_command i3status
+ ##       tray_output primary
+ ##}
+
+############################## Ubuntu
+bar {
+  	font pango:Source Sans Pro-10 11
+status_command i3blocks -c ~/.config/i3/i3blocks.conf
+  colors {
+    separator #268bd2
+    background #002b36
+    statusline #839496
+    focused_workspace #fdf6e3 #6c71c4 #fdf6e3
+    active_workspace #fdf6e3 #6c71c4 #fdf6e3
+    inactive_workspace #002b36 #586e75 #002b36
+    urgent_workspace #d33682 #d33682 #fdf6e3
+  }
+}
+################ Startup #####################
+# exec --no-startup-id udiskie -a -t -F &
+exec --no-startup-id feh --bg-scale ~/Pictures/wall/linux.jpg
+exec --no-startup-id volumeicon &
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,de,ir
+    #exec --no-startup-id sleep 2s ; conky -c ~/.conkyrc/conkyrc 
+    # exec --no-startup-id compton --config ~/.compton.conf -b 
+exec --no-startup-id nm-applet &
+exec --no-startup-id clipit &
+exec --no-startup-id kbdd &
+exec --no-startup-id xfce4-power-manager &
+exec --no-startup-id xset s 180 &
+##############################################
+
+################ Exit #####################
+set $mode_system System (l) lock, (e) logout, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -i  ~/Pictures/wall/lock.png, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h exec --no-startup-id "sudo pm-suspend-hybrid", mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+shift+e mode "$mode_system"
+##########################################
+
+################ Volume #####################
+bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
+bindsym XF86AudioMute exec amixer sset Master toggle && twmnc -t "Volume mute"
+#############################################
+
+################ Brightness #################
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 05 && pkill -RTMIN+20 i3blocks
+bindsym XF86MonBrightnessDown exec xbacklight -dec 05 && pkill -RTMIN+20 i3blocks
+#############################################
+
+################ Screenshot #################
+bindsym Print exec "gnome-screenshot"
+############################################
+
+################ Output VGA #################
+workspace 10 output VGA1
+#############################################
+
+################ Touch Pad ##################
+#exec synclient HorizScrollDelta=-65 VertScrollDelta=-65
+# Turn off edge scrolling
+#exec synclient HorizEdgeScroll=1  VertEdgeScroll=1
+# Turn off tap click (single finger, two finger, and 3 finger)
+exec synclient TapButton1=1 TapButton2=1 TapButton3=1
+#############################################
+# disable touchpad Binding
+ bindsym XF86WWW  exec  synclient TouchpadOff=0 #F4 enable touchpad 
+ bindsym XF86TouchpadToggle exec  synclient TouchpadOff=1 #F9 disable touchpad
+
+# Program-Related Bindings
+
+  bindsym $mod+Shift+f exec firefox
+  bindsym $mod+shift+g exec chromium
+  bindsym $mod+t exec thunar
+  bindsym $mod+shift+t exec caja
+  bindsym $mod+shift+s exec catfish
+  bindsym $mod+Shift+v exec virtualbox 
+  bindsym $mod+ctrl+l exec i3lock -i  ~/Pictures/wall/lock.png
+  bindsym $mod+Shift+a exec anki 
+  bindsym $mod+Print  exec gnome-screenshot
+#clementine shortcut 
+  bindsym $mod+m exec  audacious
+  bindsym $mod+p exec  audacious -t
+  bindsym $mod+n exec  audacious -f
+  bindsym $mod+b exec  audacious -r
+
+# Program Workspaces
+  assign [class="Firefox"] $WS1
+  assign [class="chromium"] $WS1
+  assign [class="Audacious"] $WS0
+  assign [class= "Clementine"] $W0
+  assign [class="GNS3"] $WS5
+  assign [class="PacketTracer6"] $WS5
+  assign [class="Vmplayer"] $WS4
+  assign [class="VirtualBox"] $WS4
+  assign [class="Telegram"] $WS9
+  assign [class="Thunderbird"] $WS9
+  assign [class="TeXstudio"] $WS7
+ # assign [class="libreoffice-startcenter"] $WS7
+
+#Display Bindings
+#dual monitor app # arandr
+  bindsym $mod+ctrl+s exec --no-startup-id  ~/.config/i3/monitor/mirror.sh # mirror display
+  bindsym $mod+ctrl+d exec --no-startup-id ~/.config/i3/monitor/dual.sh  # clone or dublicate

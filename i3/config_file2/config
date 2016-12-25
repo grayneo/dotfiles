@@ -1,0 +1,304 @@
+# Constants
+  set $mod Mod4
+
+  set $base00 #101218
+  set $base01 #1f222d
+  set $base02 #252936
+  set $base03 #7780a1
+  set $base04 #C0C5CE
+  set $base05 #d1d4e0
+  set $base06 #C9CCDB
+  set $base07 #ffffff
+  set $base08 #ee829f
+  set $base09 #f99170
+  set $base0A #ffefcc
+  set $base0B #a5ffe1
+  set $base0C #97e0ff
+  set $base0D #97bbf7
+  set $base0E #c0b7f9
+  set $base0F #fcc09e
+
+  set $workspace1 "1: "
+  set $workspace2 "2: "
+  set $workspace3 "3: "
+  set $workspace4 "4:  "
+  set $workspace5 "5: "
+  set $workspace6 "6: "
+  set $workspace7 "7: "
+  set $workspace8 "8: "
+  set $workspace9 "9: "
+  set $workspace10 "10: "
+
+  set $monitor1 "DVI-I-1"
+  set $monitor2 "HDMI-0"
+
+# General Configuration
+  font pango:System San Francisco Display 10
+  floating_modifier $mod
+  hide_edge_borders both
+  new_window none
+ 
+
+############ i3gaps ###############################
+
+for_window [class="^.*"] border pixel 1
+ 
+gaps inner 10
+gaps outer 0
+ 
+smart_gaps on
+smart_borders on
+ 
+ 
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+ctrl+g mode "$mode_gaps"
+ 
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+ 
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+ 
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+ 
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+ 
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+########################################
+
+
+# change container layout (stacked, tabbed, toggle split)
+ bindsym $mod+s layout stacking
+ bindsym $mod+w layout tabbed
+ bindsym $mod+e layout toggle split
+#
+
+# alternatively, you can use the cursor keys:
+ bindsym $mod+Left focus left
+ bindsym $mod+Down focus down
+ bindsym $mod+Up focus up
+ bindsym $mod+Right focus right
+#
+
+# split in horizontal orientation
+  bindsym $mod+h split h
+# split in vertical orientation
+  bindsym $mod+v split v
+
+# Window-Related Bindings
+  bindsym $mod+q kill
+# bindsym $mod+h focus left
+# bindsym $mod+j focus down
+# bindsym $mod+k focus up
+# bindsym $mod+l focus right
+  bindsym $mod+Shift+Left move left
+  bindsym $mod+Shift+Down move down
+  bindsym $mod+Shift+Up move up
+  bindsym $mod+Shift+Right move right
+  bindsym $mod+Shift+space floating toggle
+  bindsym $mod+f fullscreen toggle
+# bindsym $mod+v layout toggle split
+# bindsym $mod+h split h
+  bindsym $mod+space focus mode_toggle
+  bindsym $mod+r mode "  "
+  mode "  " {
+    bindsym Right resize shrink width 10 px or 10 ppt
+    bindsym Up resize grow height 10 px or 10 ppt
+    bindsym Down resize shrink height 10 px or 10 ppt
+    bindsym Left resize grow width 10 px or 10 ppt
+    bindsym Escape mode "default"
+  }
+
+# Restart-Related Bindings
+  bindsym $mod+Shift+c reload
+  bindsym $mod+Shift+r restart
+
+
+# Switch between windows (with rofi):
+bindsym $mod+Tab exec --no-startup-id rofi -show window -case-sensitive -bg 'white' -bc '#569BE4' -bw 2 -fg 'black' -hlbg '#569BE4' -hlfg 'white' -font ubuntu\ 10 -opacity 90 -eh 1.5 -lines 10 -columns 1 -width 40 -location 0 -padding 5 #-auto-select
+
+################ Exit #####################
+set $mode_system System (l) lock, (e) logout, (h) hibernate, (r) reboot, (s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -i  ~/Pictures/wall/lock.png, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym h exec --no-startup-id sudo systemctl hibernate , mode "default"
+    bindsym r exec --no-startup-id systemctl reboot , mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff , mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+shift+e mode "$mode_system"
+##########################################"
+
+# Program-Related Bindings
+
+
+  bindsym $mod+Shift+f exec firefox
+  bindsym $mod+shift+g exec chromium-browser
+  bindsym $mod+g exec rofi -show run -lines 10 -padding 
+  bindsym $mod+t exec thunar
+  bindsym $mod+shift+t exec caja
+  bindsym $mod+shift+s exec catfish
+  bindsym $mod+Shift+v exec virtualbox 
+  bindsym $mod+Shift+l exec i3lock -i  ~/Pictures/wall/lock.png
+  bindsym $mod+Return exec i3-sensible-terminal
+  bindsym $mod+Print  exec gnome-screenshot
+  bindsym $mod+Shift+a exec anki  
+
+
+#
+# bind audio media keys to PulseAudio
+# set $refresh_i3status killall -USR1 i3status
+# bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -- -5% && $refresh_i3status
+# bindsym --release Print exec imgur-screenshot
+
+# Volume & Media Bindings
+ # bindsym XF86AudioLowerVolume exec --no-startup-id pulseaudio-ctl down
+ # bindsym XF86AudioRaiseVolume exec --no-startup-id pulseaudio-ctl up
+ # bindsym XF86AudioMute exec --no-startup-id pulseaudio-ctl mute
+ # bindsym XF86AudioPlay exec playerctl play-pause
+ # bindsym XF86AudioPause exec playerctl pause
+ # bindsym XF86AudioNext exec playerctl next
+ # bindsym XF86AudioPrev exec playerctl previous
+
+# Pulse Audio controls
+ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# disable touchpad Binding
+ bindsym XF86WWW  exec  synclient TouchpadOff=0 #F4 enable touchpad 
+ bindsym XF86TouchpadToggle exec  synclient TouchpadOff=1 #F9 disable touchpad
+
+# Sreen brightness controls
+ bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Workspace-Related Bindings
+  bindsym $mod+1 workspace $workspace1
+  bindsym $mod+2 workspace $workspace2
+  bindsym $mod+3 workspace $workspace3
+  bindsym $mod+4 workspace $workspace4
+  bindsym $mod+5 workspace $workspace5
+  bindsym $mod+6 workspace $workspace6
+  bindsym $mod+7 workspace $workspace7
+  bindsym $mod+8 workspace $workspace8
+  bindsym $mod+9 workspace $workspace9
+  bindsym $mod+0 workspace $workspace10
+
+  bindsym $mod+Shift+1 move container to workspace $workspace1
+  bindsym $mod+Shift+2 move container to workspace $workspace2
+  bindsym $mod+Shift+3 move container to workspace $workspace3
+  bindsym $mod+Shift+4 move container to workspace $workspace4
+  bindsym $mod+Shift+5 move container to workspace $workspace5
+  bindsym $mod+Shift+6 move container to workspace $workspace6
+  bindsym $mod+Shift+7 move container to workspace $workspace7
+  bindsym $mod+Shift+8 move container to workspace $workspace8
+  bindsym $mod+Shift+9 move container to workspace $workspace9
+  bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# Workspace Monitors
+  workspace $workspace1 output $monitor1
+  workspace $workspace2 output $monitor1
+  workspace $workspace3 output $monitor1
+  workspace $workspace4 output $monitor1
+  workspace $workspace5 output $monitor1
+  workspace $workspace6 output $monitor1
+  workspace $workspace9 output $monitor1
+  workspace $workspace10 output $monitor1
+
+# Program Workspaces
+  assign [class="Firefox"] $workspace1
+  assign [class="chromium-browser"] $workspace1
+  assign [class="Rhythmbox"] $workspace10
+  assign [class= "Audacious"]$workspace10
+  assign [class="GNS3"] $workspace5
+  assign [class="PacketTracer6"] $workspace5
+  assign [class="Vmplayer"]$workspace4
+  assign [class="VirtualBox"] $workspace4
+  assign [class="Telegram"] $workspace9
+  assign [class="Thunderbird"] $workspace9
+
+# Floating
+  for_window [class="Lxappearance"] floating enable
+  for_window [class="Seahorse"] floating enable
+  for_window [class="Pavucontrol"] floating enable
+
+# Widow Colours
+#                         border  background text    indicator
+  client.focused          $base01 $base01    $base07 $base0F
+  client.focused_inactive $base02 $base02    $base03 $base0F
+  client.unfocused        $base02 $base02    $base03 $base0F
+  client.urgent           $base02 $base08    $base00 $base0F
+
+#Bar
+  bar {
+    font pango: System San Francisco Display, FontAwesome 11
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    position bottom
+    # strip_workspace_numbers yes
+    height 25
+    bindsym button4 nop
+    bindsym button5 nop
+    colors {
+      separator $base03
+      background $base01
+      statusline $base05
+#                        border  background text
+      focused_workspace  $base01 $base01    $base07
+      active_workspace   $base01 $base02    $base03
+      inactive_workspace $base01 $base01    $base03
+      urgent_workspace   $base01 $base01    $base08
+    }
+  }
+
+#startup app
+  #exec guake
+  exec clipit
+  exec  nm-applet
+  exec feh --bg-scale  /home/neo/Pictures/moto-wallpaper/big.jpg
+
+#Audacious shortcut 
+  bindsym $mod+m exec  audacious
+  bindsym $mod+p exec  audacious -t
+  bindsym $mod+n exec  audacious -f
+  bindsym $mod+b exec  audacious -r
+
+#Display Bindings 
+  bindsym $mod+ctrl+e exec disper -d auto -e  # extended
+  bindsym $mod+ctrl+shift+s exec disper -d auto -S # secondary
+  bindsym $mod+ctrl+s exec disper -d auto -s # primary display
+  bindsym $mod+ctrl+d exec disper -d auto -c # clone or dublicate
+
+#keybord layout
+  exec setxkbmap -option grp:alt_shift_toggle us_de,ir
+  exec killall ibus-daemon
+  exec killall ibus-ui-gtk3
+#
+
