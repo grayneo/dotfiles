@@ -257,6 +257,8 @@ exec --no-startup-id kbdd &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id xset s 180 &
 exec --no-startup-id nm-applet &
+exec --no-startup-id "eval `ssh-agent -s -t 6000`"
+exec --no-startup-id "eval `gpg-agent -daemon`"
 exec --no-startup-id redshift-gtk
 
 # Pulse Audio controls
