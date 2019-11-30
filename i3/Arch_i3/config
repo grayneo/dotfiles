@@ -257,6 +257,8 @@ exec --no-startup-id kbdd &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id xset s 180 &
 exec --no-startup-id nm-applet &
+exec --no-startup-id "eval `ssh-agent -s -t 6000`"
+exec --no-startup-id "eval `gpg-agent -daemon`"
 exec --no-startup-id redshift-gtk
 
 # Pulse Audio controls
@@ -355,7 +357,7 @@ exec synclient TapButton1=1 TapButton2=1 TapButton3=1
 ### Display Bindings ###
  #dual monitor app # arandr
   bindsym $mod+ctrl+a exec arandr
-  bindsym $mod+ctrl+s exec ~/.screenlayout/single_hdmi.sh  # mirror display
-  bindsym $mod+ctrl+d exec ~/.screenlayout/extend_left.sh    # clone or dublicate
+  bindsym $mod+ctrl+s exec ~/.config/i3/monitor/mirror.sh # mirror display
+  bindsym $mod+ctrl+d exec ~/.config/i3/monitor/dual.sh  # clone or dublicate
 #
 
